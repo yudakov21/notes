@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Добавить новую заметку</h2>
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}  <!-- Отображение формы с полями, созданными в форме NoteForm -->
+    <button type="submit">Сохранить</button>
+  </form>
+
+  <a href="{% url 'note_list' %}">Вернуться к списку заметок</a>
+{% endblock %}
+

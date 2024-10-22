@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Заметки{% endblock %}</title>
+
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'note_list' %}">Главная</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'add_note' %}">Добавить заметку</a></li>
+                    <li>
+                        <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button >Выйти</button>
+                        </form>
+                    </li>
+                    
+                    <li>Привет, {{ user.username }}!</li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Войти</a></li>
+                    <li><a href="{% url 'signup' %}">Регистрация</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>{% block header %}Заметки{% endblock %}</h1>
+        <div class="content">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Мой Блокнот</p>
+    </footer>
+
+
+</body>
+</html>

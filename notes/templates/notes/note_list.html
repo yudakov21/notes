@@ -1,0 +1,21 @@
+<!-- notes/templates/notes/note_list.html -->
+{% extends "base.html" %}
+{% block content %}
+<h2>Your Notes</h2>
+<a href="{% url 'add_note' %}">Add New Note</a>
+<ul>
+    {% for note in notes %}
+        <li>
+            <strong>{{ note.title }}</strong> - {{ note.created_at }}
+            <p>{{ note.content }}</p>
+             {% if note.attached_file %}
+                <p>Прикрепленный файл: <a href="{{ note.attached_file.url }}">{{ note.attached_file.name }}</a></p>
+             {% else %}
+                <p>Файл не прикреплен.</p>
+             {% endif %}
+            <a href="{% url 'edit_note' note.id %}">Edit</a> |
+            <a href="{% url 'delete_note' note.id %}">Delete</a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}
